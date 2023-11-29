@@ -21,6 +21,7 @@ class ProjectsTableSeeder extends Seeder
             $new_project->name = $faker->words(2, true);
             $new_project->slug = Project::generateSlug($new_project->name);
             $new_project->status = $faker->word;
+            $new_project->description = $faker->paragraph;
             $new_project->start_date = $faker->date();
             $new_project->end_date = $faker->date();
 

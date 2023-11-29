@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('slug', 50)->unique();
             $table->string('status', 10);
+            $table->text('description');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
 
