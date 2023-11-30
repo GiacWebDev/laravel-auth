@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col">
-                <form action="{{ route('admin.projects.update') }}" method="POST">
+                <form action="{{ route('admin.projects.update', $project) }}" method="POST">
                     @csrf
 
                     @method('PUT')
@@ -17,12 +17,12 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Stato</label>
                         <input type="text" class="form-control" id="status" name="status"
-                            value="{{ $project->status }}>
+                            value="{{ $project->status }}">
                     </div>
                     <div class="form-floating">
+                        <label for="floatingTextarea2">Descrizione</label>
                         <textarea class="form-control mb-3 " placeholder="Descrizione" name="description" id="description" style="height: 200px"
                             value="{{ $project->description }}""></textarea>
-                        <label for="floatingTextarea2">Descrizione</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Invia</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
