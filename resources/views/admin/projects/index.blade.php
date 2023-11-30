@@ -11,15 +11,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($projects as $project_data)
+            @foreach ($projects as $project)
                 <tr>
-                    <td>{{ $project_data->id }}</td>
-                    <td>{{ $project_data->name }}</td>
-                    <td>{{ $project_data->description }}</td>
-                    <td><a href="#" class="btn btn-success"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
+                    <td>{{ $project->id }}</td>
+                    <td>{{ $project->name }}</td>
+                    <td>{{ $project->description }}</td>
+                    <td><a href="{{ route('admin.projects.show', $project) }}" class="btn btn-success"><i
+                                class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
+                    </td>
+                    <td><a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-warning"><i
+                                class="fa-solid fa-pen" style="color: #ffffff;"></i></a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    {{ $projects->links() }}
 @endsection

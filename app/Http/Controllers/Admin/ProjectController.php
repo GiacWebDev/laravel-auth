@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('id', 'desc')->paginate(10);
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -40,6 +40,7 @@ class ProjectController extends Controller
         $new_project = new Project();
         $form_data = $request->all();
         $new_project->fill($form_data);
+
         $new_project->save();
 
         return redirect()->route('admin.projects.show',$new_project);
@@ -51,9 +52,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -64,9 +65,10 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $project = Project::find($id);
 
+        return view('admin.projects.edit', compact('project'));
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -76,7 +78,9 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $form_data = $request->all();
+        $project->update($form_data);
+        return redirect()->route('admin.project.show', $project);
     }
 
     /**
