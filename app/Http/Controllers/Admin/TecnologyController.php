@@ -37,7 +37,16 @@ class TecnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $exists = Tecnology::where('name', $request->name)->first();
+        if($exists){
+            return redirect()->route('admin.tecnologies.index')->with('error', 'Categoria già presente');
+        }
+        else{
+            $new_tecnology = new Tecnology();
+            $new_tecnology->name = $request->name;
+            $new_tecnology->save();
+            return redirect()->route('admin.tecnologies.index')->with('seccess', 'Categoria inserita con successo');
+        }
     }
 
     /**

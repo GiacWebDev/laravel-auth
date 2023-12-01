@@ -5,7 +5,7 @@
         <h1>Crea un nuovo Progetto</h1>
 
         <div class="row">
-            <div class="col">
+            <div class="col-6">
                 <form action="{{ route('admin.projects.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">

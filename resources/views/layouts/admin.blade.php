@@ -23,7 +23,7 @@
 
     <div class="main-wrapper d-flex">
         @include('admin.partials.sidebar')
-        <div class="space">
+        <div class="space w-100">
             @yield('content')
         </div>
 
