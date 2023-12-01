@@ -48,9 +48,6 @@
                             </td>
                             <td>
 
-                                <button onclick="submitForm()" class="btn btn-warning" id="button-addon2"><i
-                                        class="fa-solid fa-pencil"></i></button>
-
                                 @include('admin.partials.form-delete', [
                                     'route' => route('admin.tecnologies.destroy', $tecnology),
                                     'message' => 'Sei sicuro di voler eliminare questa tecnologia?',

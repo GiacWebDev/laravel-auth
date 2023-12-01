@@ -37,7 +37,16 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $exists = Type::where('name', $request->name)->first();
+        if($exists){
+            return redirect()->route('admin.types.index')->with('error', 'Tipo già presente');
+        }
+        else{
+            $new_type = new Type();
+            $new_type->name = $request->name;
+            $new_type->save();
+            return redirect()->route('admin.types.index')->with('seccess', 'Tipo inserita con successo');
+        }
     }
 
     /**
@@ -69,9 +78,24 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Type $type)
     {
-        //
+        $val_data = $request->validate([
+            'name' => 'required|min:2|max:20',
+        ],[
+            'name.required' => 'Devi inserire il nome del tipo',
+            'name.min' => 'Il nome del tipo deve essere minimo 2 caratteri',
+            'name.max' => 'Il nome del tipo deve essere massimo 20 caratteri'
+        ]);
+
+        $exixts = Tecnology::where('name', $request->name)->first();
+        if($exixts){
+            return redirect()->route('admin.types.index')->with('error', 'Tipo già presente');
+        }
+
+        $tecnology->update($val_data);
+
+        return redirect()->route('admin.types.index')->with('success', 'Tipo aggiornato con successo');
     }
 
     /**
@@ -80,8 +104,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('success', 'Tipo eliminato con successo');
     }
 }
