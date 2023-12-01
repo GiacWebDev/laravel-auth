@@ -10,4 +10,5 @@ class Tecnology extends Model
 {
     use HasFactory;
 
+
 }

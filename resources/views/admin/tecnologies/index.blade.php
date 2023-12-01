@@ -34,16 +34,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($tecnologies as $tecnology_data)
+                    @foreach ($tecnologies as $tecnology)
                         <tr>
-                            <td>{{ $tecnology_data->id }}</td>
-                            <td>{{ $tecnology_data->name }}</td>
-                            {{-- <form action="{{ route('admin.tecnologies.destroy', $tecnology->id) }}" method="POST"
-                                onsubmit="return confirm('Sei sicuro di voler eliminare questa tecnologia?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                            </form> --}}
+                            <td>{{ $tecnology->id }}</td>
+                            <td>
+                                <form action="{{ route('admin.tecnologies.update', $tecnology) }}" method="POST"
+                                    id="form-edit">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="text" class="form-hidden" value="{{ $tecnology->name }}"
+                                        name="name" />
+                                </form>
+                            </td>
+                            <td>
+
+                                <button onclick="submitForm()" class="btn btn-warning" id="button-addon2"><i
+                                        class="fa-solid fa-pencil"></i></button>
+
+                                @include('admin.partials.form-delete', [
+                                    'route' => route('admin.tecnologies.destroy', $tecnology),
+                                    'message' => 'Sei sicuro di voler eliminare questa tecnologia?',
+                                ])
+
+
+
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

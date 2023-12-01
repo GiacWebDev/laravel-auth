@@ -78,10 +78,27 @@ class TecnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tecnology $tecnology)
     {
-        //
+
+        $val_data = $request->validate([
+            'name' => 'required|min:2|max:20',
+        ],[
+            'name.required' => 'Devi inserire il nome della tecnologia utilizzata',
+            'name.min' => 'Il nome della tecnologia deve essere minimo 2 caratteri',
+            'name.max' => 'Il nome della tecnologia deve essere massimo 20 caratteri'
+        ]);
+
+        $exixts = Tecnology::where('name', $request->name)->first();
+        if($exixts){
+            return redirect()->route('admin.tecnologies.index')->with('error', 'Tecnologia già presente');
+        }
+
+        $tecnology->update($val_data);
+
+        return redirect()->route('admin.tecnologies.index')->with('success', 'tecnologia aggiornata con successo');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -89,8 +106,9 @@ class TecnologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tecnology $tecnology)
     {
-        //
+        $tecnology->delete();
+        return redirect()->route('admin.tecnologies.index')->with('success', 'Tecnologia eliminata con successo');
     }
 }

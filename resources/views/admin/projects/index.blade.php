@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <table class="table table-dark table-hover">
         <thead>
             <tr>
@@ -22,6 +28,13 @@
                     <td><a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-warning"><i
                                 class="fa-solid fa-pen" style="color: #ffffff;"></i></a>
                     </td>
+                    <td>
+                        @include('admin.partials.form-delete', [
+                            'route' => route('admin.projects.destroy', $project),
+                            'message' => 'Sei sicuro di voler eliminare questa tecnologia?',
+                        ])
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>
