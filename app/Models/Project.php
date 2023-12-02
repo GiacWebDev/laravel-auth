@@ -10,6 +10,11 @@ class Project extends Model
 {
     use HasFactory;
 
+    //la funzione è al singolare perche un tipo ha piu progetti
+    public function type(){
+        return $this->belongsTo(Type::class);
+    }
+
     protected $fillable = ['name', 'description', 'status'];
 
 
