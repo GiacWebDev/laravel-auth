@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">#ID</th>
                 <th scope="col">Titolo</th>
-                <th scope="col">Descrizione</th>
+                <th scope="col">Tipo</th>
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
@@ -21,7 +21,8 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
-                    <td>{{ $project->description }}</td>
+                    <td>{{ $project->type->name }}</td>
+
                     <td><a href="{{ route('admin.projects.show', $project) }}" class="btn btn-success"><i
                                 class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
                     </td>
